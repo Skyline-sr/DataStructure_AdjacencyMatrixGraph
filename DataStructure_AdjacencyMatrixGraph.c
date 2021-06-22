@@ -9,6 +9,8 @@
 typedef char VerTexType;
 typedef int ArcType;
 
+static int visited[MVNum];
+
 typedef struct {
 	VerTexType vertexs[MVNum];
 	ArcType arcs[MVNum][MVNum];
@@ -18,11 +20,15 @@ typedef struct {
 Status CreateUDN(AMGraph* G);
 int LocateVertex(AMGraph G, VerTexType v);
 void PrintGraph(AMGraph G);
+void DFS(AMGraph G, VerTexType vertex);
 
 void main() {
 	AMGraph G;
 	CreateUDN(&G);
 	PrintGraph(G);
+	printf("深度遍历：");
+	DFS(G, G.vertexs[0]);
+	printf("\n");
 }
 
 Status CreateUDN(AMGraph* G) {
@@ -87,5 +93,19 @@ void PrintGraph(AMGraph G) {
 			printf("%10d ", G.arcs[i][j]);
 		}
 		printf("\n");
+	}
+}
+
+void DFS(AMGraph G, VerTexType vertex) {
+	int i, vertex_i;
+	printf("%c", vertex);
+	vertex_i = LocateVertex(G, vertex);
+	visited[vertex_i] = 1;
+	for (i = 0; i < G.vertex_num; i++)
+	{
+		if (G.arcs[vertex_i][i] == 1 && visited[i] == 0)
+		{
+			DFS(G, G.vertexs[i]);
+		}
 	}
 }
