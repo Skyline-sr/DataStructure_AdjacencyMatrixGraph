@@ -9,7 +9,7 @@
 typedef char VerTexType;
 typedef int ArcType;
 
-static int visited[MVNum];
+static int visited[MVNum] = { 0 };
 
 typedef struct {
 	VerTexType vertexs[MVNum];
@@ -98,7 +98,7 @@ void PrintGraph(AMGraph G) {
 
 void DFS(AMGraph G, VerTexType vertex) {
 	int i, vertex_i;
-	printf("%c", vertex);
+	printf("%c ", vertex);
 	vertex_i = LocateVertex(G, vertex);
 	visited[vertex_i] = 1;
 	for (i = 0; i < G.vertex_num; i++)
